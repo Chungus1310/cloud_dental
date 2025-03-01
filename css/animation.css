@@ -1,0 +1,161 @@
+/* Dental-themed Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes shine {
+    0% { background-position: -100px; }
+    100% { background-position: 200px; }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes float-vertical {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes float-horizontal {
+    0% { transform: translateX(0px); }
+    50% { transform: translateX(10px); }
+    100% { transform: translateX(0px); }
+}
+
+@keyframes tooth-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes fade-slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tooth shape loader animation */
+@keyframes tooth-pulse {
+    0% { 
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(0, 160, 227, 0.2));
+    }
+    50% { 
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 15px rgba(0, 160, 227, 0.6));
+    }
+    100% { 
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(0, 160, 227, 0.2));
+    }
+}
+
+/* Shimmering shine effect for certain elements */
+.shine-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.shine-effect::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: shine 3s infinite linear;
+}
+
+/* Pulsing elements */
+.pulse-element {
+    animation: pulse 2s infinite ease-in-out;
+}
+
+/* Floating elements */
+.float-element {
+    animation: float-vertical 3s infinite ease-in-out;
+}
+
+/* Rotating elements */
+.rotate-element {
+    animation: rotate 8s infinite linear;
+}
+
+/* Tooth bounce animation */
+.tooth-icon {
+    animation: tooth-bounce 2s infinite ease-in-out;
+}
+
+/* Animated Tooth instead of 3D model */
+.animated-tooth-container {
+    height: 300px;
+    width: 100%;
+    background: linear-gradient(135deg, #f5f9ff 0%, #e0f2ff 100%);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 160, 227, 0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.animated-tooth {
+    font-size: 120px;
+    color: white;
+    text-shadow: 0 5px 15px rgba(0, 160, 227, 0.2);
+    animation: float-and-rotate 4s infinite ease-in-out;
+}
+
+.scan-line {
+    position: absolute;
+    height: 4px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(0,160,227,0) 0%, rgba(0,160,227,0.7) 50%, rgba(0,160,227,0) 100%);
+    top: 0;
+    left: 0;
+    animation: scan 3s infinite ease-in-out;
+    box-shadow: 0 0 10px rgba(0, 160, 227, 0.5);
+}
+
+@keyframes float-and-rotate {
+    0% { 
+        transform: translateY(0) rotate(0deg);
+        color: white;
+    }
+    33% { 
+        transform: translateY(-15px) rotate(5deg);
+        color: #e6f7ff;
+    }
+    66% {
+        transform: translateY(10px) rotate(-5deg);
+        color: #f0f9ff;
+    }
+    100% { 
+        transform: translateY(0) rotate(0deg);
+        color: white;
+    }
+}
+
+@keyframes scan {
+    0% { top: 0; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
