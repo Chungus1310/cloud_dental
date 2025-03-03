@@ -29,10 +29,10 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="#" class="active">Home</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#doctors">Doctors</a></li>
-                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="pages/services.html">Services</a></li>
+                    <li><a href="pages/doctors.html">Doctors</a></li>
+                    <li><a href="pages/about.html">About Us</a></li>
                     <li><a href="#testimonials">Testimonials</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
@@ -256,40 +256,12 @@
             <div class="appointment-content" data-aos="fade-right">
                 <h2 class="section-title">Buat Janji Temu</h2>
                 <p>Jadwalkan kunjungan Anda dengan spesialis kami. Kami akan menghubungi Anda dalam 24 jam.</p>
-                <form id="appointment-form">
-                    <div class="form-group">
-                        <input type="text" name="fullName" placeholder="Full Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="Email Address" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" name="phone" placeholder="Phone Number" required>
-                    </div>
-                    <div class="form-group">
-                        <select name="department" required>
-                            <option value="" disabled selected>Pilih Departemen</option>
-                            <option value="general">Kedokteran Gigi Umum</option>
-                            <option value="orthodontics">Ortodontik (Kawat Gigi)</option>
-                            <option value="endodontics">Endodontik (Perawatan Saluran Akar)</option>
-                            <option value="periodontics">Periodontik (Perawatan Gusi)</option>
-                            <option value="prosthodontics">Prostodontik (Gigi Tiruan)</option>
-                            <option value="pediatric">Kedokteran Gigi Anak</option>
-                            <option value="oral-surgery">Bedah Mulut</option>
-                            <option value="aesthetic">Estetika Gigi</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <input type="date" name="appointmentDate" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="additionalInfo" placeholder="Additional Information" rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                <form id="appointment-form" class="multi-step-form">
+                    <!-- Form steps and content will be inserted by booking.js -->
                 </form>
             </div>
             <div class="appointment-image" data-aos="fade-left">
-                <img src="images/appointment.jpg" alt="Make an appointment">
+                <img src="images/appointment.jpg" alt="Make an appointment" loading="lazy">
             </div>
         </div>
     </section>

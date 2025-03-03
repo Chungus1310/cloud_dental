@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud's Dental Hospital - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./admin.css">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../images/logo.gif" alt="Cloud's Dental">
+                    <h3>Cloud's Dental</h3>
+                </div>
+                <button class="toggle-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="nav-item" data-page="doctors">
+                    <i class="fas fa-user-md"></i>
+                    <span>Dokter</span>
+                </div>
+                <div class="nav-item" data-page="bookings">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Janji Temu</span>
+                </div>
+                <div class="nav-item" data-page="services">
+                    <i class="fas fa-tooth"></i>
+                    <span>Layanan</span>
+                </div>
+                <div class="nav-item" data-page="testimonials">
+                    <i class="fas fa-comment-alt"></i>
+                    <span>Testimonial</span>
+                </div>
+                <div class="nav-item" data-page="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Pengaturan</span>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <button id="logout-button">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="admin-header">
+                <div class="admin-header-left">
+                    <button id="toggle-sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+                <div class="admin-header-right">
+                    <div class="admin-user">
+                        <img src="../images/doctor-1.jpg" alt="Admin" class="admin-avatar">
+                        <span class="admin-name">Admin</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Dashboard Page -->
+                <div class="page" id="dashboard-page">
+                    <div class="stat-cards">
+                        <div class="stat-card">
+                            <div class="stat-card-icon blue">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-card-info">
+                                <h4>Total Bookings</h4>
+                                <h3 id="total-bookings">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon green">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <div class="stat-card-info">
+                                <h4>Total Dokter</h4>
+                                <h3 id="total-doctors">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon orange">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-card-info">
+                                <h4>Menunggu Konfirmasi</h4>
+                                <h3 id="pending-bookings">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon purple">
+                                <i class="fas fa-comment-alt"></i>
+                            </div>
+                            <div class="stat-card-info">
+                                <h4>Total Testimonial</h4>
+                                <h3 id="total-testimonials">0</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-bookings">
+                        <div class="section-header">
+                            <h3>Recent Appointments</h3>
+                            <button class="btn btn-sm" onclick="navigateTo('bookings')">View All</button>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table" id="recent-bookings-table">
+                                <thead>
+                                    <tr>
+                                        <th>Patient Name</th>
+                                        <th>Doctor</th>
+                                        <th>Date & Time</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Will be filled by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Login Page -->
+                <div class="page hidden" id="login-page">
+                    <div class="login-container">
+                        <div class="login-form">
+                            <div class="login-header">
+                                <img src="../images/logo.gif" alt="Cloud's Dental">
+                                <h2>Admin Login</h2>
+                            </div>
+                            <div id="login-error" class="alert alert-danger hidden"></div>
+                            <form id="login-form" onsubmit="return false;">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" id="username" name="username" autocomplete="username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" name="password" autocomplete="current-password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctors Page -->
+                <div class="page hidden" id="doctors-page">
+                    <div class="page-header">
+                        <h3>Doctors Management</h3>
+                        <button class="btn btn-primary" id="add-doctor-btn">
+                            <i class="fas fa-plus"></i> Add Doctor
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" id="doctors-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Specialty</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Will be filled by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Bookings Page -->
+                <div class="page hidden" id="bookings-page">
+                    <div class="page-header">
+                        <h3>Manajemen Janji Temu</h3>
+                        <div class="filter-controls">
+                            <select id="status-filter">
+                                <option value="">Semua Status</option>
+                                <option value="pending">Menunggu</option>
+                                <option value="confirmed">Dikonfirmasi</option>
+                                <option value="completed">Selesai</option>
+                                <option value="cancelled">Dibatalkan</option>
+                            </select>
+                            <input type="date" id="date-filter">
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Pasien</th>
+                                    <th>Dokter</th>
+                                    <th>Layanan</th>
+                                    <th>Tanggal & Waktu</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bookings-table">
+                                <tr>
+                                    <td colspan="6" class="text-center">Memuat data...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="pagination" id="bookings-pagination"></div>
+                    </div>
+                </div>
+
+                <!-- Services Page -->
+                <div class="page hidden" id="services-page">
+                    <div class="page-header">
+                        <h3>Services Management</h3>
+                        <button class="btn btn-primary" id="add-service-btn">
+                            <i class="fas fa-plus"></i> Add Service
+                        </button>
+                    </div>
+                    <div class="services-grid" id="services-grid">
+                        <!-- Will be filled by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Testimonials Page -->
+                <div class="page hidden" id="testimonials-page">
+                    <div class="page-header">
+                        <h3>Testimonials Management</h3>
+                        <button class="btn btn-primary" id="add-testimonial-btn">
+                            <i class="fas fa-plus"></i> Add Testimonial
+                        </button>
+                    </div>
+                    <div class="testimonials-container">
+                        <div class="testimonials-pending">
+                            <h4>Pending Testimonials</h4>
+                            <div id="pending-testimonials">
+                                <!-- Will be filled by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="testimonials-approved">
+                            <h4>Approved Testimonials</h4>
+                            <div id="approved-testimonials">
+                                <!-- Will be filled by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Page -->
+                <div class="page hidden" id="settings-page">
+                    <div class="settings-container">
+                        <div class="settings-section">
+                            <h3>Pengaturan Akun</h3>
+                            <form id="change-password-form">
+                                <input type="hidden" id="settings-username" name="username" autocomplete="username" value="">
+                                <div class="form-group">
+                                    <label for="current-password">Password Saat Ini</label>
+                                    <input type="password" id="current-password" name="currentPassword" required autocomplete="current-password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-password">Password Baru</label>
+                                    <input type="password" id="new-password" name="newPassword" required autocomplete="new-password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirm-password">Konfirmasi Password</label>
+                                    <input type="password" id="confirm-password" name="confirmPassword" required autocomplete="new-password">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Password</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Templates -->
+    <div class="modal" id="booking-details-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Detail Janji Temu</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Will be filled by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="booking-status-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Update Status</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="booking-status-form">
+                    <input type="hidden" id="booking-id">
+                    <div class="form-group">
+                        <label for="booking-status">Status</label>
+                        <select id="booking-status" required>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="save-booking-status">Save Changes</button>
+                <button type="button" class="btn" id="cancel-booking-status">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="doctor-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Data Dokter</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="doctor-form" enctype="multipart/form-data">
+                    <input type="hidden" id="doctor-id">
+                    <div class="form-group">
+                        <label for="doctor-image">Profile Image</label>
+                        <div class="image-upload-container">
+                            <img id="doctor-image-preview" src="../images/default-avatar.jpg" alt="Doctor preview">
+                            <input type="file" id="doctor-image" accept="image/*" class="image-upload">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="doctor-name">Name</label>
+                        <input type="text" id="doctor-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="doctor-specialty">Specialty</label>
+                        <input type="text" id="doctor-specialty" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="doctor-email">Email</label>
+                        <input type="email" id="doctor-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="doctor-bio">Bio</label>
+                        <textarea id="doctor-bio" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="doctor-services">Services</label>
+                        <select id="doctor-services" multiple>
+                            <!-- Will be populated dynamically -->
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="save-doctor">Save</button>
+                <button type="button" class="btn" id="cancel-doctor">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="service-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Service Details</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="service-form" enctype="multipart/form-data">
+                    <input type="hidden" id="service-id">
+                    <div class="form-group">
+                        <label for="service-image">Service Image</label>
+                        <div class="image-upload-container">
+                            <img id="service-image-preview" src="../images/default-service.jpg" alt="Service preview">
+                            <input type="file" id="service-image" accept="image/*" class="image-upload">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="service-name">Name</label>
+                        <input type="text" id="service-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="service-description">Description</label>
+                        <textarea id="service-description" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="service-icon">Icon Class (FontAwesome)</label>
+                        <input type="text" id="service-icon" placeholder="fas fa-tooth">
+                        <div class="icon-preview">
+                            <i id="icon-preview" class="fas fa-tooth"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="service-category">Category</label>
+                        <select id="service-category" required>
+                            <option value="preventive">Preventive</option>
+                            <option value="cosmetic">Cosmetic</option>
+                            <option value="surgical">Surgical</option>
+                            <option value="pediatric">Pediatric</option>
+                            <option value="general">General</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="service-duration">Duration (minutes)</label>
+                        <input type="number" id="service-duration" min="15" step="15" value="30">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="save-service">Save</button>
+                <button type="button" class="btn" id="cancel-service">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="testimonial-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Testimonial Details</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="testimonial-form" enctype="multipart/form-data">
+                    <input type="hidden" id="testimonial-id">
+                    <div class="form-group">
+                        <label for="testimonial-image">User Image</label>
+                        <div class="image-upload-container">
+                            <img id="testimonial-image-preview" src="../images/testimonial-1.jpg" alt="User preview">
+                            <input type="file" id="testimonial-image" accept="image/*" class="image-upload">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="testimonial-name">Name</label>
+                        <input type="text" id="testimonial-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="testimonial-title">Title/Position</label>
+                        <input type="text" id="testimonial-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="testimonial-content">Testimonial</label>
+                        <textarea id="testimonial-content" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="testimonial-rating">Rating</label>
+                        <select id="testimonial-rating" required>
+                            <option value="5">5 Stars</option>
+                            <option value="4">4 Stars</option>
+                            <option value="3">3 Stars</option>
+                            <option value="2">2 Stars</option>
+                            <option value="1">1 Star</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="save-testimonial">Save</button>
+                <button type="button" class="btn" id="cancel-testimonial">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./admin.js"></script>
+</body>
+</html>

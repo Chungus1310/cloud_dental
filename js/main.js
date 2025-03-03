@@ -48,8 +48,71 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// Function to load doctors dynamically
+async function loadDoctors() {
+    const doctorsContainer = document.querySelector('.doctors-grid');
+    if (!doctorsContainer) return;
+    
+    try {
+        const response = await fetch('/api/doctors');
+        const doctors = await response.json();
+        
+        // Clear loading placeholder if any
+        doctorsContainer.innerHTML = '';
+        
+        doctors.forEach(doctor => {
+            const doctorCard = document.createElement('div');
+            doctorCard.className = 'doctor-card';
+            doctorCard.setAttribute('data-aos', 'fade-up');
+            doctorCard.setAttribute('data-aos-delay', '100');
+            
+            const socialLinks = [];
+            if (doctor.social_linkedin) {
+                socialLinks.push(`<a href="${doctor.social_linkedin}" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>`);
+            }
+            if (doctor.social_twitter) {
+                socialLinks.push(`<a href="${doctor.social_twitter}" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>`);
+            }
+            
+            doctorCard.innerHTML = `
+                <div class="doctor-image">
+                    <img src="${doctor.image}" alt="${doctor.name}" loading="lazy">
+                </div>
+                <div class="doctor-info">
+                    <div class="doctor-name">
+                        <h3>${doctor.name}</h3>
+                    </div>
+                    <div class="doctor-specialty">
+                        <p>${doctor.specialty}</p>
+                    </div>
+                    <div class="doctor-social">
+                        ${socialLinks.join('')}
+                        <a href="mailto:${doctor.email}" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            `;
+            
+            doctorsContainer.appendChild(doctorCard);
+        });
+        
+        // Re-initialize lazy loading for the new images
+        lazyLoadImages();
+        
+    } catch (error) {
+        console.error('Error loading doctors:', error);
+        doctorsContainer.innerHTML = `
+            <div class="error-message">
+                <p>Terjadi kesalahan saat memuat data dokter. Silakan coba lagi nanti.</p>
+            </div>
+        `;
+    }
+}
+
 // Initialize all modules
 document.addEventListener('DOMContentLoaded', () => {
+    // Load doctors dynamically
+    loadDoctors();
+    
     // Initialize testimonials slider
     initTestimonials();
     
@@ -67,8 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize map fallback
     initMapFallback();
-    
-    // 3D tooth model removed
     
     // Newsletter form submission
     const newsletterForm = document.querySelector('.newsletter-form');

@@ -24,76 +24,93 @@ const testimonials = [
 ];
 
 // Function to initialize testimonials slider
-export function initTestimonials() {
+export async function initTestimonials() {
     const testimonialContainer = document.querySelector('.testimonial-slider');
     
     if (!testimonialContainer) return;
     
     // Clear any existing content
-    testimonialContainer.innerHTML = '';
+    testimonialContainer.innerHTML = '<div class="loading-spinner">Loading...</div>';
     
-    // Create testimonial slides
-    testimonials.forEach(testimonial => {
-        const testimonialSlide = createTestimonialSlide(testimonial);
-        testimonialContainer.appendChild(testimonialSlide);
-    });
-    
-    // Initialize slider functionality
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.testimonial-slide');
-    const totalSlides = slides.length;
-    
-    // Create navigation dots
-    const dotsContainer = document.createElement('div');
-    dotsContainer.className = 'testimonial-dots';
-    
-    testimonials.forEach((_, index) => {
-        const dot = document.createElement('span');
-        dot.className = index === 0 ? 'dot active' : 'dot';
-        dot.addEventListener('click', () => goToSlide(index));
-        dotsContainer.appendChild(dot);
-    });
-    
-    testimonialContainer.appendChild(dotsContainer);
-    
-    // Auto-slide functionality
-    let slideInterval = setInterval(nextSlide, 5000);
-    
-    testimonialContainer.addEventListener('mouseenter', () => {
-        clearInterval(slideInterval);
-    });
-    
-    testimonialContainer.addEventListener('mouseleave', () => {
-        slideInterval = setInterval(nextSlide, 5000);
-    });
-    
-    // Show first slide
-    updateSlides();
-    
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        updateSlides();
-    }
-    
-    function goToSlide(index) {
-        currentSlide = index;
-        updateSlides();
-    }
-    
-    function updateSlides() {
-        // First remove active class from all slides
-        slides.forEach(slide => {
-            slide.classList.remove('active');
+    try {
+        // Fetch testimonials from the API
+        const response = await fetch('/api/testimonials');
+        const testimonials = await response.json();
+        
+        if (testimonials.length === 0) {
+            testimonialContainer.innerHTML = '<p class="no-data-message">No testimonials available.</p>';
+            return;
+        }
+        
+        // Clear the loading spinner
+        testimonialContainer.innerHTML = '';
+        
+        // Create testimonial slides
+        testimonials.forEach(testimonial => {
+            const testimonialSlide = createTestimonialSlide(testimonial);
+            testimonialContainer.appendChild(testimonialSlide);
         });
         
-        // Add active class to current slide
-        slides[currentSlide].classList.add('active');
+        // Initialize slider functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const totalSlides = slides.length;
         
-        // Update dots
-        const dots = dotsContainer.querySelectorAll('.dot');
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlide);
+        // Create navigation dots
+        const dotsContainer = document.createElement('div');
+        dotsContainer.className = 'testimonial-dots';
+        
+        testimonials.forEach((_, index) => {
+            const dot = document.createElement('span');
+            dot.className = index === 0 ? 'dot active' : 'dot';
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
         });
+        
+        testimonialContainer.appendChild(dotsContainer);
+        
+        // Auto-slide functionality
+        let slideInterval = setInterval(nextSlide, 5000);
+        
+        testimonialContainer.addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+        });
+        
+        testimonialContainer.addEventListener('mouseleave', () => {
+            slideInterval = setInterval(nextSlide, 5000);
+        });
+        
+        // Show first slide
+        updateSlides();
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlides();
+        }
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlides();
+        }
+        
+        function updateSlides() {
+            // First remove active class from all slides
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Add active class to current slide
+            slides[currentSlide].classList.add('active');
+            
+            // Update dots
+            const dots = dotsContainer.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+    } catch (error) {
+        console.error('Error loading testimonials:', error);
+        testimonialContainer.innerHTML = '<p class="error-message">Failed to load testimonials. Please try again later.</p>';
     }
 }
 
@@ -106,7 +123,7 @@ function createTestimonialSlide(testimonial) {
         <div class="testimonial-content">
             <p>${testimonial.content}</p>
             <div class="testimonial-author">
-                <img src="${testimonial.image}" alt="${testimonial.name}">
+                <img src="${testimonial.image}" alt="${testimonial.name}" loading="lazy">
                 <div class="testimonial-author-info">
                     <h4>${testimonial.name}</h4>
                     <p>${testimonial.title}</p>

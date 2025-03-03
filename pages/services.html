@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Cloud's Dental Hospital</title>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/animation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="../images/logo.gif" alt="Cloud's Dental Hospital Logo">
+                <h1>Cloud's Dental Hospital</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../pages/services.html" class="active">Services</a></li>
+                    <li><a href="../pages/doctors.html">Doctors</a></li>
+                    <li><a href="../pages/about.html">About Us</a></li>
+                    <li><a href="../index.html#testimonials">Testimonials</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-banner">
+        <div class="container">
+            <h1>Our Services</h1>
+            <p>Comprehensive dental care solutions for you and your family</p>
+        </div>
+    </div>
+
+    <section class="services-page">
+        <div class="container">
+            <div class="services-categories">
+                <button class="category-btn active" data-category="all">All Services</button>
+                <button class="category-btn" data-category="preventive">Preventive Care</button>
+                <button class="category-btn" data-category="cosmetic">Cosmetic Dentistry</button>
+                <button class="category-btn" data-category="surgical">Surgical Procedures</button>
+                <button class="category-btn" data-category="pediatric">Pediatric Dentistry</button>
+            </div>
+
+            <div class="services-grid" id="services-grid">
+                <!-- Will be populated by JavaScript -->
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Schedule Your Visit?</h2>
+            <p>Book an appointment with our experienced dental professionals today.</p>
+            <a href="../index.html#appointment" class="btn btn-primary">Book Appointment</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <img src="../images/logo.gif" alt="Cloud's Dental Hospital Logo">
+                        <h2>Cloud's Dental Hospital</h2>
+                    </div>
+                    <p>Providing world-class dental care in Indonesia since 2005.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Cloud's Dental Hospital. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="../js/main.js" type="module"></script>
+    <script src="../js/services-page.js" type="module"></script>
+</body>
+</html>
